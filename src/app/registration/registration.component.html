@@ -1,0 +1,250 @@
+
+<div class="maindiv">
+  <h3 class="text-white text-center text-uppercase"><i><fa-icon [icon]="faComputer"></fa-icon> New Info Tech</i></h3>
+    <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a href="#myhome" data-bs-toggle="tab" class="nav-link text-white"><fa-icon [icon]="faHome"></fa-icon> Home</a>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle text-white " data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><fa-icon [icon]="faLaptopFile"></fa-icon> Services</a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Web Developemnt</a>
+        <a class="dropdown-item" href="#">Software Development</a>
+        <a class="dropdown-item" href="#">Game Development</a>
+        <a class="dropdown-item" href="#">App Development</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#mytable" data-bs-toggle="tab" class="nav-link text-white "><fa-icon [icon]="faTable"></fa-icon> Tables</a>
+    </li>
+    <li class="nav-item">
+      <a href="#empform" data-bs-toggle="tab" class="nav-link text-white "><fa-icon [icon]="faAddressCard"></fa-icon> Register Form</a>
+    </li>
+    <li class="nav-item">
+      <a href="#mycontact" data-bs-toggle="tab" class="nav-link text-white "><fa-icon [icon]="faPhone"></fa-icon> Contact US</a>
+    </li>
+  </ul>
+</div>
+<div class="tab-content">
+<div id="empform" class="tab-pane fade">
+  <div class="row">
+    <div class="col-md-5">
+      <h1 class="lead text-danger ">Employee Register Form</h1>
+      <form #myForm="ngForm" [formGroup]="form" (ngSubmit)="submitForm()" autocomplete="on" style="display:flow-root;"  class="form">
+        <div class
+        ="form-group">
+            <label for="Firstname">First Name</label>
+            <input
+            [(ngModel)]="employee.FirstName"
+            name="FirstName"
+                formControlName="FirstName"
+                id="FirstName"
+                type="text"
+                class="form-control"
+                maxlength="20"
+                [ngClass]="{ 'is-invalid': submitted && f['FirstName'].errors}"
+                >
+              
+            <div *ngIf="submitted && f['FirstName'].invalid" class="alert alert-danger">
+                <div *ngIf="f['FirstName'].errors && f['FirstName'].errors['required']">First Name is required.*</div>
+                <div *ngIf="f['FirstName'].errors && f['FirstName'].errors['minlength']">First Name should be 3 character.</div>
+            </div>
+    </div>
+    <div class="form-group">
+    <label for="lastname">Last Name</label>
+    <input
+    [(ngModel)]="employee.LastName"
+    name="LastName"
+        formControlName="LastName"
+        id="LastName"
+        type="text"
+        class="form-control"
+         maxlength="20"
+        [ngClass]="{ 'is-invalid': submitted && f['LastName'].errors }"
+        >
+    <div *ngIf="submitted && f['LastName'].invalid" class="alert alert-danger">
+        <div *ngIf="f['LastName'].errors && f['LastName'].errors['required']">Last Name is required.*</div>
+    </div>
+    </div>
+    <div class="form-group">
+    <label for="mobile">Mobile Number</label>
+    <input
+    [(ngModel)]="employee.MobileNumber"
+    name="MobileNumber"
+        formControlName="MobileNumber"
+        id="MobileNumber"
+        type="text"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['MobileNumber'].errors }"
+        (keypress)="onKeyPress($event)"
+         maxlength="13"
+        >
+    <div *ngIf="submitted && f['MobileNumber'].invalid" class="alert alert-danger">Mobile should be 10 digit.*</div>
+        <div *ngIf="f['MobileNumber'].errors && f['MobileNumber'].errors['MobileNumber']">Please, enter valid Mobile Number.</div>
+        <div *ngIf="f['MobileNumber'].errors?.['pattern']">Mobile number is not 10 digit</div>
+    </div>
+    <div class="form-group">
+    <label for="email">Email ID</label>
+    <input
+    [(ngModel)]="employee.EmailID"
+    name="EmailID"
+        formControlName="EmailID"
+        id="EmailID"
+        type="text"
+        class="form-control"
+       maxlength="50"
+        [ngClass]="{ 'is-invalid': submitted && f['EmailID'].errors }"
+        >
+    <div *ngIf="submitted && f['EmailID'].invalid" class="alert alert-danger">
+        <div *ngIf="f['EmailID'].errors && f['EmailID'].errors['required']">EmailID is required.*</div>
+        <div *ngIf="f['EmailID'].errors && f['EmailID'].errors['EmailID']">Please, enter valid email address.</div>
+        <div *ngIf="f['EmailID'].errors?.['pattern']">Example Email Address abcd@gmail.com.*</div>
+    </div>
+    </div>
+    <div class="form-group">
+    <label for="Address">Address</label>
+    <textarea
+    [(ngModel)]="employee.Address"
+    name="Address"
+        formControlName="Address"
+        id="Address"
+        type="text"
+        class="form-control"
+         maxlength="100"
+        >
+    </textarea>
+    </div>
+    <br>
+    
+    <div class="form-group">
+    <label for="DateOfBirth">Date Of Birth</label>
+    <input
+    [(ngModel)]="employee.DateOfBirth"
+    name="DateOfBirth"
+        formControlName="DateOfBirth"
+        id="DateOfBirth"
+        class="form-control" 
+        type="date"
+       [max]="maxDate"
+       [min]="minDate"
+        [ngClass]="{ 'is-invalid': submitted && f['DateOfBirth'].errors }">
+        <div *ngIf="submitted && f['DateOfBirth'].invalid" class="alert alert-danger">
+        <div *ngIf="f['DateOfBirth'].touched && f['DateOfBirth'].invalid" class="alert alert-danger">Date Of Birth  is required.*</div>
+          <div *ngIf="f['DateOfBirth'].errors && f['DateOfBirth'].errors['required']">Date Of Birth  is required.*</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+    <label for="">Employee Role :</label>
+    <select  formControlName="EmployeeRoleID"  [(ngModel)]="employee.EmployeeRoleID"
+    name="EmployeeRoleID"
+    class="form-control"
+    [ngClass]="{ 'is-invalid': submitted && f['EmployeeRoleID'].errors }"
+    >
+    <option disabled selected value>--- select an option---</option>
+     <option *ngFor="let web of employeerole"value="{{web.EmployeeRoleID}}">{{web.EmployeeRole}}</option>
+    </select>
+    <div *ngIf="submitted && f['EmployeeRoleID'].invalid" class="alert alert-danger">please select a  Employee Role.*</div>
+    <div *ngIf="f['EmployeeRoleID'].errors && f['EmployeeRoleID'].errors['required']"></div>
+    </div>
+    <br>
+    <div class="form-group" >
+    <label for="temporary">Is Temporary :</label>
+    <input
+    [(ngModel)]="employee.IsTemporary"
+    name="IsTemporary"
+    mdbCheckbox
+    class="form-check-input btn btn-primary"
+    type="checkbox"
+    id="temporary"
+    value="option1"
+    formControlName="temporary"
+    />
+    </div>
+    <br>
+    <div class="form-group">
+    <label>Gender Name :</label> 
+    <select formControlName="GenderID"
+    class="form-control" [(ngModel)]="employee.GenderID"
+    name="GenderID"
+    [ngClass]="{ 'is-invalid': submitted && f['GenderID'].errors }" >
+      <option disabled selected value>--- select an option---</option>
+      <option  *ngFor="let web of gender" value="{{web.GenderID}}">{{web.GenderName}}</option>
+    </select>
+    <div *ngIf="submitted && f['GenderID'].invalid" class="alert alert-danger">please selec a Gender.*</div>
+    </div>
+    <br>
+    
+    <div class="form-group text-center" id="btn">
+    <button type="submit" class="btn btn-primary">
+     <i class="fa fa-user"></i>Register</button>
+    </div>
+    </form>
+    </div>
+  <div class="col-md-7 para">
+    <h3 class="lead text-danger">Employee Qualities</h3>
+    <ul class="lead">  
+   <li>Improving leadership is an idea that can be difficult to grasp in tactical or practical ways.</li>
+   <li>Building trust is the foundation for leading. </li>
+   <li>Bring positive energy and a willingness to listen.</li>
+   <li>Encourage people to believe in a better future</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div id="mytable"  class="tab-pane fade">
+  <table class="table text-success  bg-info table-striped table-bordered table-hover table-condensed table-responsive" >
+    <thead>
+      <tr>
+        <th >Employee ID</th>
+        <th>First Name</th>
+        <th >Last Name</th>
+        <th >Mobile Number</th>
+        <th>EmailID</th>
+        <th>Address</th>
+        <th >Date Of Birth</th>
+        <th>Employee Role</th>
+        <th>Is Temporary</th>
+        <th>Gender Name</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let employee of employeeList">
+      <tr >
+        <td>{{employee.EmployeeID}}</td>
+        <td>{{employee.FirstName}}</td>
+        <td>{{employee.LastName}}</td>
+        <td>{{employee.MobileNumber}}</td>
+       <td>{{employee.EmailID}}</td>
+        <td>{{employee.Address}}</td>
+        <td>{{employee.DateOfBirth | date:"dd/mm/yyyy" }}</td>
+        <td>{{employee.EmployeeRoleID}}</td>
+        <td>{{employee.IsTemporary}}</td>
+        <td>{{employee.GenderID }}</td>  
+         <td type="button" class="btn btn-primary" (click)="deleteClick(employee)">Delete</td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+<div id="myhome"  class="tab-pane fade">
+  <h1 class="lead text-danger">Welcome To My Site</h1>
+<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, labore, eaque delectus aliquid magni deserunt libero suscipit officiis tempora mollitia dolores blanditiis, adipisci numquam voluptatibus illum unde distinctio accusantium quae quidem reiciendis eum. Ad hic laudantium aliquam neque voluptatibus molestias ipsam, est quibusdam dolorum voluptates dolores officia exercitationem labore repellendus possimus similique quae odio accusantium! Culpa tenetur exercitationem ad neque non dolores cupiditate aut officia earum sapiente dolorem consequuntur quisquam suscipit dolorum eaque, aspernatur in a nemo sit totam aliquid. Quis, dolor et? Voluptates reiciendis minus maxime saepe, a inventore quibusdam libero quis sapiente eligendi obcaecati vitae? Quaerat enim, quibusdam saepe corporis laboriosam sint odit nisi aperiam, adipisci praesentium nulla recusandae debitis, suscipit consequatur culpa. Placeat, corrupti! Molestias, sapiente ad at eos sit ea quas qui quasi ipsum vero blanditiis recusandae culpa itaque illum quo, dolorum necessitatibus quisquam corrupti quibusdam repudiandae maxime dignissimos sunt consequuntur a. Pariatur blanditiis dolores expedita ratione dolor temporibus voluptatem quam excepturi asperiores dolorem tempore velit eveniet sapiente nemo nobis cum architecto, ipsam rerum reiciendis rem nulla ex illum optio! Cupiditate, similique doloribus? Reiciendis maiores similique tempora. Atque repudiandae, eum sed porro odit ipsum esse expedita cupiditate tenetur deleniti dolorem quas tempora reiciendis doloremque asperiores veritatis?</p>
+</div>
+<div id="mycontact" class="tab-pane fade text-center para">
+  <h1 class="lead text-danger text-center">Contact US</h1>
+  <address>
+    Written by <a href="mailto:webmaster@example.com">Vignesh k</a>.<br>
+Visit us at:<br>
+Example.com<br>
+Thanjavur, Tamilnadu<br>
+India
+  </address>
+</div>
+</div>
+
+<div class="footer">
+<div class="col-md-12 text-center bg-info">
+  <footer class="bg-warning text-success text-center lead"><fa-icon [icon]="faLocationArrow"></fa-icon>New Info Tech-Since 1976.....</footer>
+</div>
+</div>
